@@ -200,6 +200,7 @@ if($deployNestedESXiVMsForMgmt -eq 1) {
         $ovfconfig.common.guestinfo.ntp.value = $VMNTP
         $ovfconfig.common.guestinfo.syslog.value = $VMSyslog
         $ovfconfig.common.guestinfo.password.value = $VMPassword
+        $ovfconfig.common.guestinfo.vlan.value = $VMVLAN
         $ovfconfig.common.guestinfo.ssh.value = $true
 
         My-Logger "Deploying Nested ESXi VM $VMName ..."
@@ -254,6 +255,7 @@ if($deployNestedESXiVMsForWLD -eq 1) {
         $ovfconfig.common.guestinfo.ntp.value = $VMNTP
         $ovfconfig.common.guestinfo.syslog.value = $VMSyslog
         $ovfconfig.common.guestinfo.password.value = $VMPassword
+        $ovfconfig.common.guestinfo.vlan.value = $VMVLAN
         $ovfconfig.common.guestinfo.ssh.value = $true
 
         My-Logger "Deploying Nested ESXi VM $VMName ..."
@@ -492,7 +494,7 @@ if($generateMgmJson -eq 1) {
                 "networkType" = "MANAGEMENT"
                 "subnet" = $NestedESXiManagementNetworkCidr
                 "gateway" = $VMGateway
-                "vlanId" = "0"
+                "vlanId" = $VMVLAN
                 "mtu" = "1500"
                 "portGroupKey" = "vcf-m01-cl01-vds01-pg-mgmt"
                 "standbyUplinks" = @()
@@ -502,7 +504,7 @@ if($generateMgmJson -eq 1) {
                 "networkType" = "VMOTION"
                 "subnet" = $NestedESXivMotionNetworkCidr
                 "gateway" = $esxivMotionGateway
-                "vlanId" = "0"
+                "vlanId" = $VMOTIONVLAN
                 "mtu" = "9000"
                 "portGroupKey" = "vcf-m01-cl01-vds01-pg-vmotion"
                 "association" = "vcf-m01-dc01"
@@ -514,7 +516,7 @@ if($generateMgmJson -eq 1) {
                 "networkType" = "VSAN"
                 "subnet" = $NestedESXivSANNetworkCidr
                 "gateway"= $esxivSANGateway
-                "vlanId" = "0"
+                "vlanId" = $VSANVLAN
                 "mtu" = "9000"
                 "portGroupKey" = "vcf-m01-cl01-vds01-pg-vsan"
                 "includeIpAddressRanges" = @(@{"startIpAddress" = $esxivSANStart;"endIpAddress" = $esxivSANEnd})
@@ -541,7 +543,7 @@ if($generateMgmJson -eq 1) {
             "vip" = $NSXManagerVIPIP
             "vipFqdn" = $NSXManagerVIPHostname
             "nsxtLicense" = $NSXLicense
-            "transportVlanId" = "2005"
+            "transportVlanId" = $TRANSPORTVLAN
             "ipAddressPoolSpec" = [ordered]@{
                 "name" = "vcf-m01-c101-tep01"
                 "description" = "ESXi Host Overlay TEP IP Pool"
