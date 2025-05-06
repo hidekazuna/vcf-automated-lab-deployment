@@ -34,6 +34,7 @@ $VCFWorkloadDomainUIJSONFile = "vcf-commission-host-ui.json"
 $VCFWorkloadDomainAPIJSONFile = "vcf-commission-host-api.json"
 
 # Cloud Builder Configurations
+$CloudbuilderVMNetwork = "Workloads"
 $CloudbuilderVMHostname = "vcf-m01-cb01"
 $CloudbuilderFQDN = "vcf-m01-cb01.vcf.lab"
 $CloudbuilderIP = "172.16.30.61"
