@@ -16,6 +16,10 @@ $VMPassword = "VMware1!"
 $VMDomain = "vcf.lab"
 $VMSyslog = "172.16.30.100"
 $VMFolder = "wlam-vcf52"
+$VMVLAN = "101"
+$VMOTIONVLAN = "102"
+$VSANVLAN = "103"
+$TRANSPORTVLAN = "104"
 
 # Full Path to both the Nested ESXi & Cloud Builder OVA
 $NestedESXiApplianceOVA = "/data/images/Nested_ESXi8.0u3c_Appliance_Template_v1.ova"
