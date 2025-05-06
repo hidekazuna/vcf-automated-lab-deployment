@@ -216,6 +216,7 @@ if($generateWLDDeploymentFile -eq 1) {
                                         "transportType" = "VSAN"
                                     }
                                 )
+                                "mtu" = 9000
                             }
                         )
                         "nsxClusterSpec" = [ordered] @{
