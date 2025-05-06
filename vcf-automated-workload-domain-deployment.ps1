@@ -276,6 +276,7 @@ if($generateWLDDeploymentFile -eq 1) {
             "vipFqdn" = $NSXManagerVIPHostname + "." + $VMDomain
             "licenseKey" = $NSXLicense
             "nsxManagerAdminPassword" = $NSXAdminPassword
+            "formFactor" = $NSXManagerSize
         }
     }
 
