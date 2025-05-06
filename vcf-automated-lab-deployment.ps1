@@ -28,6 +28,7 @@ $deployNestedESXiVMsForWLD = 1
 $deployCloudBuilder = 1
 $moveVMsIntovApp = 1
 $generateMgmJson = 1
+$MgmOneHost = 0 # 0: single host, 1: four host
 $startVCFBringup = 1
 $generateWldHostCommissionJson = 1
 $uploadVCFNotifyScript = 0
@@ -592,6 +593,7 @@ if($generateMgmJson -eq 1) {
             "clusterName" = "vcf-m01-cl01"
             "vcenterName" = "vcenter-1"
             "clusterEvcMode" = ""
+            "hostFailuresToTolerate" = $MgmOneHost
             "vmFolders" = [ordered] @{
                 "MANAGEMENT" = "vcf-m01-fd-mgmt"
                 "NETWORKING" = "vcf-m01-fd-nsx"
@@ -703,6 +705,19 @@ if($generateMgmJson -eq 1) {
 
     My-Logger "Generating Cloud Builder VCF Management Domain configuration deployment file $VCFManagementDomainJSONFile"
     $vcfConfig | ConvertTo-Json -Depth 20 | Out-File -LiteralPath $VCFManagementDomainJSONFile
+}
+
+if ($MgmOneHost -eq 0) {
+    # https://williamlam.com/2023/02/vmware-cloud-foundation-with-a-single-esxi-host-for-management-domain.html
+    # Make Cloud Builder config change to work with only one Host
+    $vm = Get-VM -Name $CloudbuilderVMHostname
+    $o = Invoke-VMScript -VM $vm -ScriptText 'echo "bringup.mgmt.cluster.minimum.size=1" >> /etc/vmware/vcf/bringup/application.properties' -GuestUser "root" -GuestPassword $CloudbuilderRootPassword -ScriptType Bash
+    $o = Invoke-VMScript -VM $vm -ScriptText 'cat /etc/vmware/vcf/bringup/application.properties' -GuestUser "root" -GuestPassword $CloudbuilderRootPassword -ScriptType Bash
+    $o = Invoke-VMScript -VM $vm -ScriptText 'systemctl restart vcf-bringup.service' -GuestUser "root" -GuestPassword $CloudbuilderRootPassword -ScriptType Bash
+
+    $o = Invoke-VMScript -VM $VM -ScriptText "systemctl status vcf-bringup.service" -GuestUser "root" -GuestPassword $CloudbuilderRootPassword -ScriptType Bash
+
+    My-Logger "Cloud Builder config Changed to work with only one Host"
 }
 
 if($generateWldHostCommissionJson -eq 1) {
