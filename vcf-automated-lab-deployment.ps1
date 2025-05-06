@@ -112,6 +112,8 @@ if($confirmDeployment -eq 1) {
     Write-Host -ForegroundColor White $VMDatastore
     Write-Host -NoNewline -ForegroundColor Green "VM Cluster: "
     Write-Host -ForegroundColor White $VMCluster
+    Write-Host -NoNewline -ForegroundColor Green "VM Host: "
+    Write-Host -ForegroundColor White $VMHost
     Write-Host -NoNewline -ForegroundColor Green "VM vApp: "
     Write-Host -ForegroundColor White $VAppName
 
@@ -178,7 +180,7 @@ if($deployNestedESXiVMsForMgmt -eq 1 -or $deployNestedESXiVMsForWLD -eq 1 -or $d
 
     $datastore = Get-Datastore -Server $viConnection -Name $VMDatastore | Select -First 1
     $cluster = Get-Cluster -Server $viConnection -Name $VMCluster
-    $vmhost = $cluster | Get-VMHost | Get-Random -Count 1
+    $vmhost = $cluster | Get-VMHost -Name $VMHost # | Get-Random -Count 1
 }
 
 if($deployNestedESXiVMsForMgmt -eq 1) {
