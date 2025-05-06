@@ -25,6 +25,7 @@ $VCSAIP = "172.16.30.76"
 $VCSARootPassword = "VMware1!VMware1!"
 
 # NSX Configuration
+$NSXManagerSize = "medium"
 $NSXManagerVIPHostname = "vcf-w01-nsx01"
 $NSXManagerVIPIP = "172.16.30.77"
 $NSXManagerNode1Hostname = "vcf-w01-nsx01a"
