@@ -344,7 +344,7 @@ if($deployCloudBuilder -eq 1) {
     $ovfconfig = Get-OvfConfiguration $CloudBuilderOVA
 
     $networkMapLabel = ($ovfconfig.ToHashTable().keys | where {$_ -Match "NetworkMapping"}).replace("NetworkMapping.","").replace("-","_").replace(" ","_")
-    $ovfconfig.NetworkMapping.$networkMapLabel.value = $VMNetwork
+    $ovfconfig.NetworkMapping.$networkMapLabel.value = $CloudbuilderVMNetwork
     $ovfconfig.common.guestinfo.hostname.value = $CloudbuilderFQDN
     $ovfconfig.common.guestinfo.ip0.value = $CloudbuilderIP
     $ovfconfig.common.guestinfo.netmask0.value = $VMNetmask
