@@ -183,6 +183,8 @@ if($generateWLDDeploymentFile -eq 1) {
             }
             "rootPassword" = $VCSARootPassword
             "datacenterName" = "wld-w01-dc01"
+            "vmSize" = "tiny"
+            "storageSize" = "lstorage"
         }
         "computeSpec" = [ordered] @{
             "clusterSpecs" = @(
