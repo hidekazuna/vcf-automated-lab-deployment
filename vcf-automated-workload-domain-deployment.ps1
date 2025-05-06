@@ -221,17 +221,17 @@ if($generateWLDDeploymentFile -eq 1) {
                         )
                         "nsxClusterSpec" = [ordered] @{
                             "nsxTClusterSpec" = @{
-                                "geneveVlanId" = 2005
+                                "geneveVlanId" = $TRANSPORTVLAN
                                 "ipAddressPoolSpec" = @{
                                     "name" = "wld-pool"
                                     "subnets" = @(
                                         [ordered] @{
-                                            "cidr" = "10.0.5.0/24"
-                                            "gateway" = "10.0.5.253"
+                                            "cidr" = $TRANSPORTCIDR
+                                            "gateway" = $TRANSPORTGateway
                                             "ipAddressPoolRanges" = @(
                                                 [ordered] @{
-                                                    "start" = "10.0.5.1"
-                                                    "end" = "10.0.5.128"
+                                                    "start" = $PoolStart
+                                                    "end" = $PoolEnd
                                                 }
                                             )
                                         }
