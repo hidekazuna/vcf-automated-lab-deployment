@@ -40,3 +40,9 @@ $SeparateNSXSwitch = $false
 $VMNetmask = "255.255.0.0"
 $VMGateway = "172.16.1.53"
 $VMDomain = "vcf.lcm"
+
+$TRANSPORTVLAN = "2005"
+$TRANSPORTCIDR = "10.0.5.0/24"
+$TRANSPORTGateway = "10.0.5.253"
+$PoolStart = "10.0.5.1"
+$PoolEnd = "10.0.5.1"
