@@ -19,6 +19,9 @@ $confirmDeployment = 1
 $commissionHost = 1
 $generateWLDDeploymentFile = 1
 $startWLDDeployment = 1
+# if failuresToTolerate is 0, do the following before running this script
+# https://williamlam.com/2023/02/vmware-cloud-foundation-with-a-single-esxi-host-for-workload-domain.html
+$failuresToTolerate = 0
 
 $verboseLogFile = "vcf-workload-domain-deployment.log"
 $VCFWorkloadDomainDeploymentJSONFile = "${VCFWorkloadDomainName}.json"
@@ -193,7 +196,7 @@ if($generateWLDDeploymentFile -eq 1) {
                     "hostSpecs" = $hostSpecs
                     "datastoreSpec" = @{
                         "vsanDatastoreSpec" = @{
-                            "failuresToTolerate" = "1"
+                            "failuresToTolerate" = $failuresToTolerate
                             "licenseKey" = $VSANLicense
                             "datastoreName" = "wld-w01-cl01-vsan01"
                         }
